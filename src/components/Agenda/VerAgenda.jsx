@@ -16,15 +16,16 @@ const VerAgenda = () => {
 
     const navigate = useNavigate();
     const usuario = getCurrentUser();
+    const matricula = usuario?.matricula; // Extraer solo la matrícula
 
-    // useCallback para memoizar la función loadData con dependencia estable
+    // useCallback con dependencia estable (solo matrícula)
     const loadData = useCallback(() => {
-        if (!usuario || !usuario.matricula) return;
+        if (!matricula) return;
 
         setLoading(true);
 
         // Cargar eventos
-        const eventosRef = ref(database, `eventos/${usuario.matricula}`);
+        const eventosRef = ref(database, `eventos/${matricula}`);
         const unsubscribeEventos = onValue(eventosRef, (snapshot) => {
             const eventosData = snapshot.val();
             const eventosArray = [];
@@ -43,7 +44,7 @@ const VerAgenda = () => {
         });
 
         // Cargar tareas
-        const tareasRef = ref(database, `tareas/${usuario.matricula}`);
+        const tareasRef = ref(database, `tareas/${matricula}`);
         const unsubscribeTareas = onValue(tareasRef, (snapshot) => {
             const tareasData = snapshot.val();
             const tareasArray = [];
@@ -67,10 +68,10 @@ const VerAgenda = () => {
             unsubscribeEventos();
             unsubscribeTareas();
         };
-    }, [usuario?.matricula]); // Solo dependencia de matricula
+    }, [matricula]); // ✅ Solo dependencia de matrícula (string estable)
 
     useEffect(() => {
-        if (!usuario || !usuario.matricula) {
+        if (!matricula) {
             navigate('/login');
             return;
         }
@@ -81,13 +82,14 @@ const VerAgenda = () => {
         return () => {
             if (unsubscribe) unsubscribe();
         };
-    }, [loadData]); // Solo loadData como dependencia
+    }, [loadData, matricula, navigate]); // ✅ Dependencias estables
 
+    // Actualizar las funciones que usan usuario.matricula
     const handleCompletar = async (item) => {
         try {
             const path = item.tipo === 'evento'
-                ? `eventos/${usuario.matricula}/${item.id}`
-                : `tareas/${usuario.matricula}/${item.id}`;
+                ? `eventos/${matricula}/${item.id}`
+                : `tareas/${matricula}/${item.id}`;
 
             await update(ref(database, path), {
                 completado: !item.completado
@@ -97,20 +99,11 @@ const VerAgenda = () => {
         }
     };
 
-    const handleEditar = (item) => {
-        setEditingItem(item);
-    };
-
-    const handleEliminarClick = (item) => {
-        setItemToDelete(item);
-        setShowDeleteModal(true);
-    };
-
     const handleEliminarConfirmado = async () => {
         try {
             const path = itemToDelete.tipo === 'evento'
-                ? `eventos/${usuario.matricula}/${itemToDelete.id}`
-                : `tareas/${usuario.matricula}/${itemToDelete.id}`;
+                ? `eventos/${matricula}/${itemToDelete.id}`
+                : `tareas/${matricula}/${itemToDelete.id}`;
 
             await remove(ref(database, path));
             setShowDeleteModal(false);
@@ -123,8 +116,8 @@ const VerAgenda = () => {
     const handleGuardarEdicion = async (updatedItem) => {
         try {
             const path = updatedItem.tipo === 'evento'
-                ? `eventos/${usuario.matricula}/${updatedItem.id}`
-                : `tareas/${usuario.matricula}/${updatedItem.id}`;
+                ? `eventos/${matricula}/${updatedItem.id}`
+                : `tareas/${matricula}/${updatedItem.id}`;
 
             // Remover propiedades que no deben actualizarse
             const { id, tipo, creadoEn, ...dataToUpdate } = updatedItem;
@@ -136,96 +129,105 @@ const VerAgenda = () => {
         }
     };
 
+     const handleEditar = (item) => {
+        setEditingItem(item);
+    };
+
+    const handleEliminarClick = (item) => {
+        setItemToDelete(item);
+        setShowDeleteModal(true);
+    };
+
     const handleCancelarEdicion = () => {
         setEditingItem(null);
     };
 
     const formatFecha = (fecha) => {
-    if (!fecha) return 'Sin fecha';
-    try {
-        // Para evitar problemas de zona horaria, parsear la fecha manualmente
-        const [year, month, day] = fecha.split('-');
-        const fechaLocal = new Date(year, month - 1, day); // month - 1 porque los meses en JS van de 0-11
-        
-        return fechaLocal.toLocaleDateString('es-ES', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
-    } catch (error) {
-        return 'Fecha inválida';
-    }
-};
+        if (!fecha) return 'Sin fecha';
+        try {
+            // Para evitar problemas de zona horaria, parsear la fecha manualmente
+            const [year, month, day] = fecha.split('-');
+            const fechaLocal = new Date(year, month - 1, day); // month - 1 porque los meses en JS van de 0-11
+            
+            return fechaLocal.toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        } catch (error) {
+            return 'Fecha inválida';
+        }
+    };
 
     const getItemsFiltrados = () => {
-    const todosItems = [...eventos, ...tareas];
+        const todosItems = [...eventos, ...tareas];
 
-    // Función para obtener la fecha de comparación
-    const getFechaComparacion = (item) => {
-        if (item.tipo === 'evento') {
-            return item.fecha ? new Date(item.fecha) : new Date(8640000000000000); // Fecha muy futura si no tiene fecha
-        } else {
-            return item.fechaEntrega ? new Date(item.fechaEntrega) : new Date(8640000000000000);
-        }
-    };
-
-    // Función para obtener el peso de la prioridad
-    const getPesoPrioridad = (prioridad) => {
-        switch (prioridad) {
-            case 'alta': return 3;
-            case 'media': return 2;
-            case 'baja': return 1;
-            default: return 0;
-        }
-    };
-
-    // Filtrar según la pestaña activa
-    let itemsFiltrados;
-    switch (activeTab) {
-        case 'eventos':
-            itemsFiltrados = todosItems.filter(item => item.tipo === 'evento');
-            break;
-        case 'tareas':
-            itemsFiltrados = todosItems.filter(item => item.tipo === 'tarea');
-            break;
-        case 'completados':
-            itemsFiltrados = todosItems.filter(item => item.completado);
-            break;
-        case 'pendientes':
-            itemsFiltrados = todosItems.filter(item => !item.completado);
-            break;
-        default:
-            itemsFiltrados = todosItems;
-    }
-
-    // Ordenar los items
-    return itemsFiltrados.sort((a, b) => {
-        // Primero por completado (los no completados primero)
-        if (a.completado !== b.completado) {
-            return a.completado ? 1 : -1;
-        }
-
-        // Luego por fecha (más próximos primero)
-        const fechaA = getFechaComparacion(a);
-        const fechaB = getFechaComparacion(b);
-        
-        if (fechaA.getTime() !== fechaB.getTime()) {
-            return fechaA.getTime() - fechaB.getTime();
-        }
-
-        // Si tienen la misma fecha, ordenar por prioridad (alta primero)
-        if (a.tipo === 'tarea' && b.tipo === 'tarea') {
-            const prioridadA = getPesoPrioridad(a.prioridad);
-            const prioridadB = getPesoPrioridad(b.prioridad);
-            if (prioridadA !== prioridadB) {
-                return prioridadB - prioridadA; // Orden descendente (alta > media > baja)
+        // Función para obtener la fecha de comparación
+        const getFechaComparacion = (item) => {
+            if (item.tipo === 'evento') {
+                return item.fecha ? new Date(item.fecha) : new Date(8640000000000000); // Fecha muy futura si no tiene fecha
+            } else {
+                return item.fechaEntrega ? new Date(item.fechaEntrega) : new Date(8640000000000000);
             }
+        };
+
+        // Función para obtener el peso de la prioridad
+        const getPesoPrioridad = (prioridad) => {
+            switch (prioridad) {
+                case 'alta': return 3;
+                case 'media': return 2;
+                case 'baja': return 1;
+                default: return 0;
+            }
+        };
+
+        // Filtrar según la pestaña activa
+        let itemsFiltrados;
+        switch (activeTab) {
+            case 'eventos':
+                itemsFiltrados = todosItems.filter(item => item.tipo === 'evento');
+                break;
+            case 'tareas':
+                itemsFiltrados = todosItems.filter(item => item.tipo === 'tarea');
+                break;
+            case 'completados':
+                itemsFiltrados = todosItems.filter(item => item.completado);
+                break;
+            case 'pendientes':
+                itemsFiltrados = todosItems.filter(item => !item.completado);
+                break;
+            default:
+                itemsFiltrados = todosItems;
         }
 
-        // Si todo es igual, ordenar alfabéticamente por título
-        return a.titulo.localeCompare(b.titulo);
-    });
-};
+        // Ordenar los items
+        return itemsFiltrados.sort((a, b) => {
+            // Primero por completado (los no completados primero)
+            if (a.completado !== b.completado) {
+                return a.completado ? 1 : -1;
+            }
+
+            // Luego por fecha (más próximos primero)
+            const fechaA = getFechaComparacion(a);
+            const fechaB = getFechaComparacion(b);
+            
+            if (fechaA.getTime() !== fechaB.getTime()) {
+                return fechaA.getTime() - fechaB.getTime();
+            }
+
+            // Si tienen la misma fecha, ordenar por prioridad (alta primero)
+            if (a.tipo === 'tarea' && b.tipo === 'tarea') {
+                const prioridadA = getPesoPrioridad(a.prioridad);
+                const prioridadB = getPesoPrioridad(b.prioridad);
+                if (prioridadA !== prioridadB) {
+                    return prioridadB - prioridadA; // Orden descendente (alta > media > baja)
+                }
+            }
+
+            // Si todo es igual, ordenar alfabéticamente por título
+            return a.titulo.localeCompare(b.titulo);
+        });
+    };
 
     const items = getItemsFiltrados();
 
