@@ -198,7 +198,7 @@ const Register = () => {
         </form>
 
         <div className="login-card-footer">
-          <p>¿Ya tienes cuenta? <a href="/login" className="register-link">Inicia sesión aquí</a></p>
+          <p>¿Ya tienes cuenta? <a href="/" className="register-link">Inicia sesión aquí</a></p>
         </div>
       </div>
     </div>

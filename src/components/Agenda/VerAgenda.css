@@ -1,0 +1,134 @@
+.agenda-item {
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: 100%;
+}
+
+.agenda-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.agenda-item.completado {
+  opacity: 0.8;
+  background-color: #f8f9fa;
+}
+
+.agenda-item.completado .card-title,
+.agenda-item.completado .card-text {
+  color: #6c757d !important;
+}
+
+.agenda-item.editing {
+  border: 2px solid #0d6efd;
+  background-color: #f8fbff;
+}
+
+.item-details {
+  margin-top: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-item i {
+  width: 16px;
+}
+
+/* Botones de acción */
+.dropdown-toggle {
+  border: none;
+  background: transparent;
+}
+
+.dropdown-toggle:hover {
+  background-color: #f8f9fa;
+}
+
+/* Filtros */
+.btn-group .btn {
+  border-radius: 6px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Modal personalizado */
+.modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0;
+  background-color: #f8f9fa;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .btn-group .btn {
+    flex: 1;
+    min-width: 120px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .agenda-item {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Estados de prioridad */
+.text-baja { color: #198754; }
+.text-media { color: #fd7e14; }
+.text-alta { color: #dc3545; }
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.agenda-item {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Scroll personalizado */
+.agenda-list {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.agenda-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.agenda-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.agenda-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.agenda-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
