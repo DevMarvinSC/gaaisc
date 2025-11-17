@@ -156,7 +156,7 @@ const Register = () => {
               className="form-input"
             >
               <option value="">Selecciona una carrera</option>
-              <option value="Ingeniería en Sistemas">Ingeniería en Sistemas Computacionales</option>
+              <option value="Ingeniería en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
               <option value="Licenciatura en Informática Administrativa">Licenciatura en Informática Administrativa</option>
             </select>
           </div>
