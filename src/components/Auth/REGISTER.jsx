@@ -3,6 +3,7 @@ import { ref, set, get } from 'firebase/database';
 import { database } from '../../firebase';
 import './REGISTER.css';
 import { useNavigate } from 'react-router-dom';
+import activeheader from '../../pages/header';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ const Register = () => {
 
   return (
     <div className="login-page-container">
+      {activeheader()}
       <div className="login-card">
         <div className="login-card-header">
           <div className="logo-container">
