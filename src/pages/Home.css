@@ -1,0 +1,129 @@
+/* Home Header Styles */
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #66ea99 0%, #4ba258 100%);
+    color: white;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-welcome h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.user-welcome p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Botón de cerrar sesión */
+.logout-btn-home {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.logout-btn-home:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.logout-btn-home:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .home-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .user-welcome h1 {
+        font-size: 1.3rem;
+    }
+    
+    .logout-btn-home {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Estilos existentes del home (mantén estos) */
+.home-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.rectangle {
+    height: 20px;
+    width: 100%;
+}
+
+.nav-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.nav-button {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.nav-button:hover {
+    transform: translateY(-5px);
+}
+
+.button-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.nav-button span {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+.nav-button a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-button:hover a {
+    color: #667eea;
+}

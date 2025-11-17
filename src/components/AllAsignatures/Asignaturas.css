@@ -1,0 +1,93 @@
+.contenedor-trayectoria {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cabecera-trayectoria {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #e1e5e9;
+    padding-bottom: 1.5rem;
+}
+
+.cabecera-trayectoria h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+}
+
+.info-carrera {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.ciclo {
+    margin-bottom: 3rem;
+}
+
+.titulo-ciclo {
+    color: #34495e;
+    border-left: 4px solid #3498db;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.grid-asignaturas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.card.asignatura {
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card.asignatura:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: #3498db;
+}
+
+/* Agrega estas reglas a tu archivo Asignaturas.css existente */
+
+.card.asignatura {
+    /* ... tus estilos existentes ... */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card.asignatura:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: #3498db;
+}
+
+.card.asignatura:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contenedor-trayectoria {
+        padding: 1rem;
+    }
+    
+    .grid-asignaturas {
+        grid-template-columns: 1fr;
+    }
+    
+    .cabecera-trayectoria h1 {
+        font-size: 2rem;
+    }
+}
+

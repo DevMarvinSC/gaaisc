@@ -1,0 +1,111 @@
+.CalendarioContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.CalendarioContainer h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 2.2rem;
+}
+
+.SelectorContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.form-input {
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 250px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.CalendarioShowContainer {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pdf-viewer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pdf-viewer iframe {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pdf-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.download-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.download-btn:hover {
+    background-color: #2980b9;
+}
+
+.placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #2d9a0f;
+    font-size: 18px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .CalendarioContainer {
+        padding: 15px;
+    }
+    
+    .CalendarioContainer h1 {
+        font-size: 1.8rem;
+    }
+    
+    .form-input {
+        width: 100%;
+    }
+    
+    .pdf-viewer iframe {
+        height: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-viewer iframe {
+        height: 400px;
+    }
+}

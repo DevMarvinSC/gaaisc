@@ -1,0 +1,262 @@
+/* Contenedor principal de la página de login */
+.login-page-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #1dc061 0%, #0b6809 100%);
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(12, 64, 8, 0.866);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6dea66, #4ba255);
+}
+
+/* Header de la tarjeta */
+.login-card-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.logo-container h1 {
+  font-size: 3rem;
+  margin: 0;
+  background: linear-gradient(135deg, #6dea66, #4ba255);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.login-card-header h2 {
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.login-card-header p {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Grupos de formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  padding: 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #0d681c;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input::placeholder {
+  color: #a0aec0;
+}
+
+/* Botón de login */
+.login-btn {
+  background: linear-gradient(135deg, #6dea66 0%, #4ba255 100%);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Links */
+.login-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.link {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Footer de la tarjeta */
+.login-card-footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.login-card-footer p {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 14px;
+}
+
+.register-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Mensajes de error */
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #c62828;
+  font-size: 14px;
+  text-align: center;
+}
+
+.Navi ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #333333;
+  display: flex;
+}
+
+.Navi ul li{
+  display: block;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.Navi ul li a:hover {
+  background-color: #111111;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .login-card-header h2 {
+    font-size: 24px;
+  }
+  
+  .form-input {
+    padding: 12px;
+  }
+  
+  .login-btn {
+    padding: 14px;
+  }
+}
+
+/* Efectos de animación */
+.login-card {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

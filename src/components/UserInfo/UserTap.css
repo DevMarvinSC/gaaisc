@@ -1,0 +1,71 @@
+/* App.css */
+.student-card {
+  border-radius: 15px;
+  overflow: hidden;
+  border: none;
+}
+
+.card-header {
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+}
+
+.avatar-circle {
+  width: 120px;
+  height: 120px;
+  background-color: #61C23A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 4px solid #e9ecef;
+}
+
+.initials {
+  font-size: 2.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.student-name {
+  color: #343a40;
+  border-bottom: 2px solid #61C23A;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.student-info p {
+  margin-bottom: 0.8rem;
+}
+
+.progress {
+  background-color: #e9ecef;
+  border-radius: 10px;
+}
+
+.university-badge {
+  margin-top: 15px;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 0.5em 0.8em;
+}
+
+.card-footer {
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .initials {
+    font-size: 2rem;
+  }
+}
