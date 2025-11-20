@@ -47,9 +47,12 @@ const GestionAgenda = () => {
   ];
 
   const handleCardClick = (path) => {
-    console.log('Navigating to:', path);
     navigate(path);
   };
+
+  const handleRegresar = () => {
+    navigate('/Dashboard')
+  }
 
   // Si no hay usuario, mostrar loading
   if (!user) {
@@ -70,7 +73,10 @@ const GestionAgenda = () => {
   }
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 text-center">
+      <button className='btn-volver' onClick={handleRegresar}>
+          Regresar
+        </button>
       <div className="row">
         <div className="col-12">
           <div className="text-center mb-5">

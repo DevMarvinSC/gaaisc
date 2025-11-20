@@ -2,6 +2,10 @@ footer {
     text-align: center;
 }
 
+.navbar{
+    background-color: #57747D;
+}
+
 .navbar-brand img {
     transition: transform 0.3s;
 }

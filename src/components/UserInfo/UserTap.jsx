@@ -3,7 +3,6 @@ import { getCurrentUser } from '../../utils/SessionManager';
 import { ref, get } from 'firebase/database';
 import { database } from '../../firebase';
 import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import activeheader from '../../pages/header';
 
 import './UserTap.css';
 
@@ -29,7 +28,6 @@ const StudentCard = () => {
         
         if (snapshot.exists()) {
           const userData = snapshot.val();
-          console.log("Datos obtenidos de Firebase:", userData);
           
           const mappedData = {
             matricula: userData.matricula || "No Disponible",
@@ -65,6 +63,10 @@ const StudentCard = () => {
   // Función para redirigir al formulario de completar perfil
   const handleCompletarPerfil = () => {
     navigate('/CompletarPerfil');
+  };
+
+  const handleRegresar = () => {
+    navigate('/Dashboard')
   };
 
   // Función para determinar el color del promedio
@@ -152,16 +154,19 @@ const StudentCard = () => {
 
   return (
     <div className="container my-5">
-      {activeheader()}
+      <button className='btn-volver' onClick={handleRegresar}>
+          Regresar
+        </button>
       <div className="row justify-content-center">
+        
         <div className="col-md-8">
           <div className="card student-card shadow-lg">
-            <div className="card-header bg-primary text-white text-center position-relative">
+            <div className="card-header text-white text-center position-relative">
               <h2 className="mb-0">Credencial Estudiantil</h2>
               {/* Botón Completar Perfil */}
               {(!studentData.perfilCompleto || studentData.nombre === "No Disponible") && (
                 <button 
-                  className="btn btn-warning position-absolute top-50 end-0 translate-middle-y me-3"
+                  className="return btn position-absolute top-50 end-0 translate-middle-y me-3 bg-warning"
                   onClick={handleCompletarPerfil}
                   style={{ zIndex: 1 }}
                 >
@@ -211,6 +216,7 @@ const StudentCard = () => {
                             aria-valuenow={progressInfo.value.replace('%', '')} 
                             aria-valuemin="0" 
                             aria-valuemax="100"
+                            
                           ></div>
                         </div>
                         <small>{progressInfo.display}</small>
@@ -230,7 +236,7 @@ const StudentCard = () => {
               </div>
             </div>
             <div className="card-footer text-muted text-center">
-              <small>Credencial válida para el ciclo escolar 2023-2024</small>
+              <small>Credencial sin validez oficial</small>
             </div>
           </div>
         </div>

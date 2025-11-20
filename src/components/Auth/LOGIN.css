@@ -4,14 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(45deg, #1dc061 0%, #0b6809 100%);
+  background: #61828D;
   padding: 20px;
 }
 
 .login-card {
   background: white;
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(12, 64, 8, 0.866);
+  box-shadow: 0 20px 40px #293a3f;
   padding: 40px;
   width: 100%;
   max-width: 400px;
@@ -27,7 +27,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #6dea66, #4ba255);
+  background: #45585e;
 }
 
 /* Header de la tarjeta */

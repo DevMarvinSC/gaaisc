@@ -145,9 +145,8 @@ const VerAgenda = () => {
     const formatFecha = (fecha) => {
         if (!fecha) return 'Sin fecha';
         try {
-            // Para evitar problemas de zona horaria, parsear la fecha manualmente
             const [year, month, day] = fecha.split('-');
-            const fechaLocal = new Date(year, month - 1, day); // month - 1 porque los meses en JS van de 0-11
+            const fechaLocal = new Date(year, month - 1, day);
             
             return fechaLocal.toLocaleDateString('es-ES', {
                 day: '2-digit',
