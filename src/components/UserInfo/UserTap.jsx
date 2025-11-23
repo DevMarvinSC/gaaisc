@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getCurrentUser } from '../../utils/SessionManager';
 import { ref, get } from 'firebase/database';
 import { database } from '../../firebase';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
 
 import './UserTap.css';
 
@@ -10,9 +10,32 @@ const StudentCard = () => {
   const [studentData, setStudentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook para navegación
+  const navigate = useNavigate();
+
+  const [isProgressAnimated, setIsProgressAnimated] = useState(false);
+
+  // Función para determinar la clase de color del progreso
+  const getProgressBarClass = (progress) => {
+    if (progress === "No Disponible") return "bg-secondary";
+
+    const numericProgress = parseFloat(progress);
+    if (numericProgress >= 90) return "excelent pulse";
+    if (numericProgress >= 70) return "good shine";
+    if (numericProgress >= 50) return "average";
+    return "low";
+  };
 
   const usuario = getCurrentUser();
+
+  useEffect(() => {
+    if (studentData && !loading) {
+      const timer = setTimeout(() => {
+        setIsProgressAnimated(true);
+      }, 30);
+
+      return () => clearTimeout(timer);
+    }
+  }, [studentData, loading]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -25,10 +48,10 @@ const StudentCard = () => {
 
         const userRef = ref(database, `users/${usuario.matricula}`);
         const snapshot = await get(userRef);
-        
+
         if (snapshot.exists()) {
           const userData = snapshot.val();
-          
+
           const mappedData = {
             matricula: userData.matricula || "No Disponible",
             nombre: userData.nombre || "No Disponible",
@@ -41,10 +64,9 @@ const StudentCard = () => {
             semestre: userData.semestre || "No Disponible",
             turno: userData.turno || "No Disponible",
             fechaRegistro: userData.fechaRegistro || "No Disponible",
-            // Nuevo campo para verificar si el perfil está completo
             perfilCompleto: userData.perfilCompleto || false
           };
-          
+
           setStudentData(mappedData);
         } else {
           setError('No se encontraron datos del usuario');
@@ -60,7 +82,6 @@ const StudentCard = () => {
     fetchUserData();
   }, [usuario]);
 
-  // Función para redirigir al formulario de completar perfil
   const handleCompletarPerfil = () => {
     navigate('/CompletarPerfil');
   };
@@ -82,16 +103,16 @@ const StudentCard = () => {
   // Función para formatear el avance curricular
   const formatProgress = (progress) => {
     if (progress === "No Disponible") return { value: "0%", display: "No Disponible" };
-    
+
     if (typeof progress === 'string' && progress.includes('%')) {
       return { value: progress, display: progress };
     }
-    
+
     const numericProgress = parseFloat(progress);
     if (!isNaN(numericProgress)) {
       return { value: `${numericProgress}%`, display: `${numericProgress}%` };
     }
-    
+
     return { value: "0%", display: "No Disponible" };
   };
 
@@ -155,32 +176,49 @@ const StudentCard = () => {
   return (
     <div className="container my-5">
       <button className='btn-volver' onClick={handleRegresar}>
-          Regresar
-        </button>
+        Regresar
+      </button>
       <div className="row justify-content-center">
-        
         <div className="col-md-8">
           <div className="card student-card shadow-lg">
             <div className="card-header text-white text-center position-relative">
-              <h2 className="mb-0">Credencial Estudiantil</h2>
-              {/* Botón Completar Perfil */}
-              {(!studentData.perfilCompleto || studentData.nombre === "No Disponible") && (
-                <button 
-                  className="return btn position-absolute top-50 end-0 translate-middle-y me-3 bg-warning"
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="flex-grow-1 text-center">
+                  <h2 className="mb-0">Credencial Estudiantil</h2>
+                </div>
+                {/* Botón Completar Perfil - Ahora dentro de un contenedor flex */}
+                {(!studentData.perfilCompleto || studentData.nombre === "No Disponible") && (
+                  <div className="ms-3 d-none d-md-block">
+                    <button
+                      className="btn btn-warning btn-sm"
+                      onClick={handleCompletarPerfil}
+                    >
+                      Completar Perfil
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* Botón para móviles - fuera del header */}
+            {(!studentData.perfilCompleto || studentData.nombre === "No Disponible") && (
+              <div className="d-md-none p-3 text-center">
+                <button
+                  className="btn btn-warning w-100"
                   onClick={handleCompletarPerfil}
-                  style={{ zIndex: 1 }}
                 >
                   Completar Perfil
                 </button>
-              )}
-            </div>
+              </div>
+            )}
+
             <div className="card-body">
               <div className="row">
                 <div className="col-md-4 text-center">
                   <div className="profile-image mb-3">
                     <div className="avatar-circle">
                       <span className="initials">
-                        {studentData.nombre !== "No Disponible" 
+                        {studentData.nombre !== "No Disponible"
                           ? studentData.nombre.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
                           : "ND"
                         }
@@ -202,24 +240,27 @@ const StudentCard = () => {
                         <p><strong>Turno:</strong> {studentData.turno}</p>
                       </div>
                       <div className="col-sm-6">
-                        <p><strong>Promedio:</strong> 
-                          <span className={`fw-bold ${getAverageColor(studentData.promedio)}`}> 
+                        <p><strong>Promedio:</strong>
+                          <span className={`fw-bold ${getAverageColor(studentData.promedio)}`}>
                             {studentData.promedio}
                           </span>
                         </p>
                         <p><strong>Avance Curricular:</strong></p>
-                        <div className="progress mt-1" style={{height: '8px'}}>
-                          <div 
-                            className="progress-bar bg-success" 
-                            role="progressbar" 
-                            style={{width: progressInfo.value}}
-                            aria-valuenow={progressInfo.value.replace('%', '')} 
-                            aria-valuemin="0" 
+                        <div className="progress mt-1" style={{ height: '8px', position: 'relative', overflow: 'hidden' }}>
+                          <div
+                            className={`progress-bar ${getProgressBarClass(studentData.porcentaje)} ${isProgressAnimated ? 'wave' : ''}`}
+                            role="progressbar"
+                            style={{
+                              width: isProgressAnimated ? progressInfo.value : '0%',
+                              transition: 'width 1.5s ease-in-out, background-color 0.5s ease'
+                            }}
+                            aria-valuenow={progressInfo.value.replace('%', '')}
+                            aria-valuemin="0"
                             aria-valuemax="100"
-                            
                           ></div>
                         </div>
                         <small>{progressInfo.display}</small>
+
                         <p className="mt-2"><strong>Especialidad:</strong> {studentData.especialidad}</p>
                       </div>
                     </div>

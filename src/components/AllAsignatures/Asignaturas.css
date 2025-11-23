@@ -91,3 +91,145 @@
     }
 }
 
+
+
+/* Estilos para el modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    text-align: center;
+    animation: slideUp 0.3s ease;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #000;
+}
+
+.modal-actions {
+    margin-top: 1.5rem;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+/* Estilos para asignaturas no disponibles */
+.asignatura-no-disponible {
+    position: relative;
+    opacity: 0.8;
+    background: #f8f9fa !important;
+    border: 1px dashed #6c757d !important;
+}
+
+.badge-no-disponible {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ffc107;
+    color: #856404;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+/* Sección informativa */
+.seccion-informativa {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    border-left: 4px solid #007bff;
+}
+
+.seccion-informativa h3 {
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.seccion-informativa h4 {
+    color: #495057;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.info-adicional ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.info-adicional li {
+    padding: 0.25rem 0;
+    color: #6c757d;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .seccion-informativa {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+}

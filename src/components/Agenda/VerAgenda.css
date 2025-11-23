@@ -6,6 +6,7 @@
   height: 100%;
 }
 
+
 .agenda-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -74,6 +75,10 @@
 .modal-footer {
   border-top: 1px solid #dee2e6;
   border-radius: 0 0 12px 12px;
+}
+.fantasma{
+  height: 150px;
+  width: auto;
 }
 
 /* Responsive */

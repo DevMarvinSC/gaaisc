@@ -317,8 +317,9 @@ const VerAgenda = () => {
                     {/* Lista de Items */}
                     {items.length === 0 ? (
                         <div className="text-center py-5">
-                            <i className="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                            <img className= 'fantasma' src="PublicIMG/nadaaqui.gif" alt="Nadaaqui" />
                             <h4 className="text-muted">No hay eventos o tareas en esta categoría</h4>
+                            
                             <p className="text-muted">Crea nuevos eventos o tareas para verlos aquí</p>
                         </div>
                     ) : (

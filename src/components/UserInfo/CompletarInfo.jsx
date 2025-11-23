@@ -32,13 +32,13 @@ const CompletarPerfil = () => {
   ];
 
   const especialidades = [
-    'Desarrollo Móvil',
-    'Software Educativo',
-    'Software Empresarial'
+    'Aplicaciones Móviles',
+    'Aplicaciones Educativa',
+    'Aplicaciones Empresariales'
   ];
 
   const semestres = ['1°', '2°', '3°', '4°', '5°', '6°', '7°', '8°', '9°'];
-  const turnos = ['Matutino', 'Vespertino', 'Nocturno'];
+  const turnos = ['Matutino', 'Vespertino', 'Mixto'];
 
   useEffect(() => {
     // Cargar datos existentes del usuario si los hay

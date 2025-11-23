@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentUser } from '../../utils/SessionManager';
-import activeheader from '../../pages/header'
+
 import './Asignaturas.css';
 
 /**
@@ -11,7 +11,9 @@ import './Asignaturas.css';
 function Asignaturas() {
     const usuario = getCurrentUser();
     const navigate = useNavigate();
-    
+    const [modalAbierto, setModalAbierto] = useState(false);
+    const [seccionDestino, setSeccionDestino] = useState('');
+
     // Definición de asignaturas por ciclo y carrera
     const asignaturasPorCarrera = {
         "Ingeniería en Sistemas Computacionales": {
@@ -25,32 +27,32 @@ function Asignaturas() {
             ],
             ciclo2: [
                 { id: "C0108006", nombre: "Programación I" },
-                { id: "programacion-orientada-objetos", nombre: "Álgebra Lineal" },
-                { id: "estructuras-datos", nombre: "Cálculo Diferencial" },
-                { id: "matematicas-discretas", nombre: "Organización de Computadoras" },
-                { id: "administracion-proyectos", nombre: "Fundamento de Redes" },
-                { id: "sistemas-operativos", nombre: "Contabilidad Básica" }
+                { id: "C0108065", nombre: "Álgebra Lineal" },
+                { id: "C0108073", nombre: "Cálculo Diferencial" },
+                { id: "C0108083", nombre: "Organización de Computadoras" },
+                { id: "C0108010", nombre: "Fundamento de Redes" },
+                { id: "C0108005", nombre: "Contabilidad Básica" }
             ],
             "cicloCorto 1": [
                 { id: "C0100003", nombre: "Comunicación Oral Y Escrita" },
-                { id: "programacion-orientada-objetos", nombre: "Cálculo Integral" },
-                { id: "estructuras-datos", nombre: "Arquitectura de Computadoras" }
+                { id: "C0108074", nombre: "Cálculo Integral" },
+                { id: "C0108084", nombre: "Arquitectura de Computadoras" }
             ],
             ciclo3: [
                 { id: "C0100001", nombre: "Filosofía y Ética Profesional" },
-                { id: "programacion-orientada-objetos", nombre: "Programación II" },
-                { id: "estructuras-datos", nombre: "Estructura de Datos" },
-                { id: "matematicas-discretas", nombre: "Matemáticas Discretas" },
-                { id: "administracion-proyectos", nombre: "Planeación de Redes" },
-                { id: "sistemas-operativos", nombre: "Metodología de la Investigación" }
+                { id: "C0108064", nombre: "Programación II" },
+                { id: "C0108067", nombre: "Estructura de Datos" },
+                { id: "C0108009", nombre: "Matemáticas Discretas" },
+                { id: "C0108014", nombre: "Planeación de Redes" },
+                { id: "C0108013", nombre: "Metodología de la Investigación" }
             ],
             ciclo4: [
                 { id: "C0100002", nombre: "Derechos Humanos, Sociedad y Medio Ambiente" },
-                { id: "programacion-orientada-objetos", nombre: "Programación III" },
-                { id: "estructuras-datos", nombre: "Ingeniería de Software" },
-                { id: "matematicas-discretas", nombre: "Investigación de Operaciones" },
-                { id: "administracion-proyectos", nombre: "Métodos Numéricos" },
-                { id: "sistemas-operativos", nombre: "Temas Selectos de Redes" },
+                { id: "C0108066", nombre: "Programación III" },
+                { id: "C0108011", nombre: "Ingeniería de Software" },
+                { id: "C0108087", nombre: "Investigación de Operaciones" },
+                { id: "C0108085", nombre: "Métodos Numéricos" },
+                { id: "C0108089", nombre: "Temas Selectos de Redes" },
                 { id: "C0100005", nombre: "Tecnologías de la Información y Comunicación" }
             ],
             "cicloCorto 2": [
@@ -58,45 +60,77 @@ function Asignaturas() {
                 { id: "C0108008", nombre: "Sistemas Operativos" }
             ],
             ciclo5: [
-                { id: "C0100001", nombre: "Desarrollo de Aplicaciones Multiplataforma" },
-                { id: "programacion-orientada-objetos", nombre: "Laboratorio de Diseño de Software" },
-                { id: "estructuras-datos", nombre: "Modelado, Diseño y Manejo de Bases de Datos" },
-                { id: "matematicas-discretas", nombre: "Probabilidad y Estadística" },
-                { id: "administracion-proyectos", nombre: "Técnicas de Graficación" },
-                { id: "sistemas-operativos", nombre: "Inglés Técnico" }
+                { id: "C0108088", nombre: "Desarrollo de Aplicaciones Multiplataforma" },
+                { id: "C0108015", nombre: "Laboratorio de Diseño de Software" },
+                { id: "C0108012", nombre: "Modelado, Diseño y Manejo de Bases de Datos" },
+                { id: "C0108075", nombre: "Probabilidad y Estadística" },
+                { id: "C0108076", nombre: "Técnicas de Graficación" },
+                { id: "C0108018", nombre: "Inglés Técnico" }
             ],
             ciclo6: [
-                { id: "C0100001", nombre: "Desarrollo Web" },
-                { id: "programacion-orientada-objetos", nombre: "Fábrica de Software" },
-                { id: "estructuras-datos", nombre: "Programación en Bases de Datos" },
-                { id: "matematicas-discretas", nombre: "Sistemas Distribuidos" },
-                { id: "administracion-proyectos", nombre: "Arquitectura de la Investigación" },
-                { id: "sistemas-operativos", nombre: "Programación de Dispositivos Móviles" }
+                { id: "C0108068", nombre: "Desarrollo de Aplicaciones Web" },
+                { id: "C0108069", nombre: "Fábrica de Software" },
+                { id: "C0108016", nombre: "Programación en Bases de Datos" },
+                { id: "C0108081", nombre: "Sistemas Distribuidos" },
+                { id: "C0108077", nombre: "Arquitectura de la Investigación" },
+                { id: "C0108070", nombre: "Programación de Dispositivos Móviles" }
             ],
             "cicloCorto 3": [
                 { id: "C0108007", nombre: "Legislación y Normatividad Informática" },
                 { id: "C0108080", nombre: "Compiladores" }
             ],
             ciclo7: [
-                { id: "estructuras-datos", nombre: "Optativa I" },
-                { id: "administracion-proyectos", nombre: "Optativa II" },
-                { id: "administracion-proyectos", nombre: "Optativa IV" },
-                { id: "C0100001", nombre: "Algoritmos Avanzados" },
-                { id: "programacion-orientada-objetos", nombre: "Administración de Bases de Datos" },
-                { id: "matematicas-discretas", nombre: "Laboratorio de Inteligencia Artificial" },
-                { id: "sistemas-operativos", nombre: "Emprendedores" }
+                { id: "C0108071", nombre: "Algoritmos Avanzados" },
+                { id: "C0108019", nombre: "Administración de Bases de Datos" },
+                { id: "C0108078", nombre: "Laboratorio de Inteligencia Artificial" },
+                { id: "C0108017", nombre: "Emprendedores" },
+                { id: "OP1", nombre: "Optativa I" },
+                { id: "OP2", nombre: "Optativa II" },
+                { id: "OP3", nombre: "Optativa III" }
             ],
             ciclo8: [
-                { id: "C0100001", nombre: "Optativa III" },
-                { id: "programacion-orientada-objetos", nombre: "Optativa v" },
                 { id: "estructuras-datos", nombre: "Bases de Datos Distribuidas" },
                 { id: "matematicas-discretas", nombre: "Laboratorio de Usabilidad" },
                 { id: "administracion-proyectos", nombre: "Simulación" },
-                { id: "sistemas-operativos", nombre: "Servicio Social" }
+                { id: "sistemas-operativos", nombre: "Servicio Social" },
+                { id: "OP4", nombre: "Optativa IV" },
+                { id: "OP5", nombre: "Optativa V" }
             ],
             ciclo9: [
                 { id: "C0100007", nombre: "Práctica Profesional" }
+            ],
+             "Aplicaciones Empresariales":[
+                {id: "C0108090", nombre: "Social Business"},
+                {id: "C0108091", nombre: "Comercio Electrónico"},
+                {id: "C0108092", nombre: "Cómputo en la Nube"},
+                {id: "C0108093", nombre: "Dashboard"},
+            ],
+
+            "Aplicaciones Móviles": [
+                {id: "C0108094", nombre: "Entorno de Desarrollo para Dispositivos Móviles"},
+                {id: "C0108095", nombre: "Simuladores en Dispositivos Móviles"},
+                {id: "C0108096", nombre: "Realidad Aumentada"},
+                {id: "C0108097", nombre: "Laboratorio de Aplicaciones para Dispositivos Móviles"},
+            ],
+             "Aplicaciones Educativas":[
+                {id: "C0108098", nombre: "Informática Educativa"},
+                {id: "C0108099", nombre: "Desarrollo de Software Educativo"},
+                {id: "C0108100", nombre: "Redes Sociales  Educativas"},
+                {id: "C0108101", nombre: "Aplicaciones Educativas Móviles"},
+
+            ],
+             "Seminario de Titulación":[
+                {id: "C0108102", nombre: "Seminario de Investigación I"},
+                {id: "C0108103", nombre: "Seminario de Investigación II"},
+                {id: "C0108104", nombre: "Seminario de Desarrollo Tecnológico I"},
+                {id: "C0108105", nombre: "Seminario de Desarrollo Tecnológico II"},
+
             ]
+
+           
+
+            
+
         }
         // Se pueden agregar más carreras aquí
     };
@@ -112,7 +146,30 @@ function Asignaturas() {
      * @param {string} idAsignatura - ID único de la asignatura
      */
     const manejarClicAsignatura = (idAsignatura) => {
-        navigate(`/Asignaturas/${idAsignatura}`);
+        if (idAsignatura === 'OP1' || idAsignatura === 'OP2' || idAsignatura === 'OP3' || idAsignatura === 'OP4' || idAsignatura === 'OP5') {
+            setSeccionDestino('seccion-optativas');
+            setModalAbierto(true);
+        } else {
+            navigate(`/Asignaturas/${idAsignatura}`);
+        }
+    };
+
+    /**
+     * Cierra el modal y navega a la sección correspondiente
+     */
+    const cerrarModal = () => {
+        setModalAbierto(false);
+        if (seccionDestino) {
+            setTimeout(() => {
+                const elemento = document.getElementById(seccionDestino);
+                if (elemento) {
+                    elemento.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }, 100);
+        }
     };
 
     /**
@@ -122,40 +179,54 @@ function Asignaturas() {
      */
     const renderizarAsignaturas = (ciclo) => {
         const carreraData = asignaturasPorCarrera[usuario.carrera];
-        
+
         if (!carreraData || !carreraData[ciclo]) {
             return null;
         }
 
         return carreraData[ciclo].map((asignatura) => (
-            <div 
-                key={`${ciclo}-${asignatura.id}`} 
-                className="card asignatura"
+            <div
+                key={`${ciclo}-${asignatura.id}`}
+                className={`card asignatura ${asignatura.id.startsWith('OP') ? 'asignatura-no-disponible' : ''}`}
                 onClick={() => manejarClicAsignatura(asignatura.id)}
                 role="button"
                 tabIndex={0}
             >
                 {asignatura.nombre}
+                {asignatura.id.startsWith('OP') && (
+                    <span className="badge-no-disponible">Seleccionable</span>
+                )}
             </div>
         ));
     };
 
     /**
      * Renderiza un ciclo académico completo
-     * @param {number} numeroCiclo - Número del ciclo (1, 2, etc.)
+     * @param {number|string} numeroCiclo - Número del ciclo (1, 2, "Corto 1", etc.)
      * @returns {JSX.Element|null} Componente del ciclo o null si no hay asignaturas
      */
     const renderizarCiclo = (numeroCiclo) => {
-        const cicloKey = `ciclo${numeroCiclo}`;
-        const asignaturas = renderizarAsignaturas(cicloKey);
+        let cicloKey;
+        if (typeof numeroCiclo === 'number') {
+            cicloKey = `ciclo${numeroCiclo}`;
+        } else {
+            // Caso por defecto o manejo de error
+            cicloKey = numeroCiclo;
+        }
+
         
+
+        const asignaturas = renderizarAsignaturas(cicloKey);
+
         if (!asignaturas || asignaturas.length === 0) {
             return null;
         }
 
         return (
             <section className={`ciclo ciclo-${numeroCiclo}`}>
-                <h3 className="titulo-ciclo">Ciclo {numeroCiclo}</h3>
+                <h3 className="titulo-ciclo">
+                    {typeof numeroCiclo === 'number' ? `Ciclo ${numeroCiclo}` : numeroCiclo}
+                </h3>
                 <div className="grid-asignaturas">
                     {asignaturas}
                 </div>
@@ -165,7 +236,6 @@ function Asignaturas() {
 
     return (
         <div className="contenedor-trayectoria">
-            {activeheader()}
             <header className="cabecera-trayectoria">
                 <button onClick={() => navigate('/Dashboard')} className="btn-volver">
                     Regresar
@@ -175,7 +245,7 @@ function Asignaturas() {
                     Carrera: <strong>{usuario.carrera}</strong>
                 </p>
             </header>
-            
+
             <main className="contenido-principal">
                 {renderizarCiclo(1)}
                 {renderizarCiclo(2)}
@@ -189,7 +259,53 @@ function Asignaturas() {
                 {renderizarCiclo(7)}
                 {renderizarCiclo(8)}
                 {renderizarCiclo(9)}
+
+                {/* Sección de información sobre optativas */}
+                <section id="seccion-optativas" className="seccion-informativa">
+                    <h3>Información sobre Optativas</h3>
+                    <p>
+                        Estas asignaturas corresponderán a la especialidad escogida.
+                    </p>
+                    <div className="info-adicional">
+                        <h4>Especialidades para {usuario.carrera}:</h4>
+                        {renderizarCiclo("Aplicaciones Empresariales")}
+                        {renderizarCiclo("Aplicaciones Móviles")}
+                        {renderizarCiclo("Aplicaciones Educativas")}
+                        {renderizarCiclo("Seminario de Titulación")}
+                    </div>
+                </section>
             </main>
+
+            {/* Modal para materias no disponibles */}
+            {modalAbierto && (
+                <div 
+                    className="modal-overlay"
+                    onClick={cerrarModal}
+                >
+                    <div 
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button 
+                            className="modal-close"
+                            onClick={cerrarModal}
+                        >
+                            ×
+                        </button>
+                        <h3>¡Asignatura Optativa!</h3>
+                        <p>La asignatura seleccionada se trata de una optativa.</p>
+                        <p>Serás redirigido a la sección de información sobre optativas.</p>
+                        <div className="modal-actions">
+                            <button 
+                                className="btn-primary"
+                                onClick={cerrarModal}
+                            >
+                                Entendido
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
