@@ -14,13 +14,14 @@ import GestionAgenda from './components/Agenda/GestionAgenda'
 import NuevaTarea from './components/Agenda/NuevaTarea';
 import NuevoEvento from './components/Agenda/NuevoEvento';
 import VerAgenda from './components/Agenda/VerAgenda';
+import AcercaDeNosotros from './pages/AcercaDeNosotros'
+import ReglamentoEscolar from './pages/ReglamentoEscolar'
 
 import ActiveHeader from './pages/header'; // Cambié el nombre a mayúscula
 
 function App() {
   return (
     <Router>
-      {/* Header aplicado a todas las rutas excepto login/register si lo deseas */}
       <ActiveHeader />
       
       <Routes>
@@ -38,6 +39,11 @@ function App() {
         <Route path="/NuevoEvento" element={<NuevoEvento />} />
         <Route path="/NuevaTarea" element={<NuevaTarea />} />
         <Route path='/VerAgenda' element={<VerAgenda/>}/>
+
+        {/*External*/}
+
+        <Route path='/AcercaDe' element={<AcercaDeNosotros/>}/>
+        <Route path='/ReglamentoEscolar' element={<ReglamentoEscolar/>}/>
       </Routes>
     </Router>
   );

@@ -7,7 +7,7 @@ import activeheader from './header'; // Componente Header, acciones generales
 import usertap from '../assets/Pages/UserTapLogo.png';
 import agenda from '../assets/Pages/Agenda.png'
 import detallesasig from '../assets/Pages/DetallesAsig.png';
-import trayectoria from '../assets/Pages/Trayectoria.png';
+//import trayectoria from '../assets/Pages/Trayectoria.png';
 // Styles
 import './Home.css';
 
@@ -77,15 +77,17 @@ function Home() {
                         </div>
                     </Link>
                 </div>
-
+                {/* 
                 <div className='nav-button'>
                     <Link to="#">
                         <div className="button-content">
+                            
                             <img src={trayectoria} alt="Trayectoria académica" className="button-image" />
                             <span>Trayectoria</span>
                         </div>
                     </Link>
                 </div>
+                */}
             </div>
         </div>
     );

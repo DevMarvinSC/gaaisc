@@ -180,7 +180,7 @@ const StudentCard = () => {
       </button>
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <div className="card student-card shadow-lg">
+          <div className="card student-card">
             <div className="card-header text-white text-center position-relative">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="flex-grow-1 text-center">
@@ -226,7 +226,7 @@ const StudentCard = () => {
                     </div>
                   </div>
                   <div className="university-badge">
-                    <span className="badge bg-dark">Universidad Juárez Autónoma De Tabasco</span>
+                    <span className="badge bg-dark">UJAT - 2025</span>
                   </div>
                 </div>
                 <div className="col-md-8">

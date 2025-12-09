@@ -1,0 +1,12 @@
+img{
+    width: 130px;
+    height: auto;
+    border-radius: 90px;
+}
+
+.scrummaster{
+    padding-bottom: 20px;
+}
+.row{
+    justify-content: space-evenly;
+}

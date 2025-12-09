@@ -2,6 +2,12 @@ footer {
     text-align: center;
 }
 
+.logoimg{
+    height: 45px;
+    width: auto;
+    text-align: center;
+}
+
 .navbar{
     background-color: #57747D;
 }
@@ -22,6 +28,7 @@ footer {
 .nav-link:hover {
     color: #0d6efd !important;
 }
+
 
 /* Ajustes específicos para móviles */
 @media (max-width: 991.98px) {

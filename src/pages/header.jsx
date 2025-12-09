@@ -1,5 +1,6 @@
 import React from 'react';
 import './header.css';
+import logo from '../assets/Logo/Logo.png'
 
 function activeheader(){
     return(
@@ -8,6 +9,7 @@ function activeheader(){
         <div class="container">
             
             <a class="navbar-brand" href="/">
+                <img className='logoimg'src={logo} alt="LogoGestoDACyTI" />
                 GestoDACyTI
             </a>
             
@@ -31,12 +33,12 @@ function activeheader(){
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">
+                        <a class="nav-link" href="ReglamentoEscolar">
                             <i class="fas fa-scale-balanced pe-2"></i>Reglamento Escolar
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">
+                        <a class="nav-link" href="AcercaDe">
                             <i class="fas fa-circle-info pe-2"></i>Acerca De
                         </a>
                     </li>
